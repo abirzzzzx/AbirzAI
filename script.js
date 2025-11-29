@@ -162,7 +162,7 @@ async function handleSend() {
             body: JSON.stringify({
                 model: "openai/gpt-3.5-turbo",
                 messages: [
-                    { role: "system", content: "You are Nexus, a high-intelligence AI interface. Be concise, technical, and helpful. Format responses with Markdown." },
+                    { role: "system", content: "You are Nexus, a high-intelligence AI interface. Be concise, technical, and helpful. Format responses with Markdown, Created by Abir." },
                     ...messages.map(m => ({ role: m.role, content: m.content }))
                 ],
             }),
