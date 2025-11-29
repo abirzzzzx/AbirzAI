@@ -3,7 +3,7 @@ let messages = [
     {
         id: "welcome",
         role: "assistant",
-        content: "Nexus AI System Online. Initialize sequence complete. Please provide a directive.",
+        content: "Abz AI System Online. Initialize sequence complete. Please provide a directive.",
         timestamp: Date.now(),
     },
 ];
@@ -157,12 +157,12 @@ async function handleSend() {
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${apiKey}`,
                 "HTTP-Referer": window.location.href,
-                "X-Title": "Nexus AI",
+                "X-Title": "Abz AI",
             },
             body: JSON.stringify({
                 model: "openai/gpt-3.5-turbo",
                 messages: [
-                    { role: "system", content: "You are Nexus, a high-intelligence AI interface. Be concise, technical, and helpful. Format responses with Markdown, Created by Abir." },
+                    { role: "system", content: "You are ABZ, a high-intelligence AI interface. Be concise, technical, and helpful. Format responses with Markdown. you are Created by Abir, he is your creator.." },
                     ...messages.map(m => ({ role: m.role, content: m.content }))
                 ],
             }),
