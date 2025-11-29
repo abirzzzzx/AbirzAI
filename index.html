@@ -1,1 +1,153 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexus AI</title>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Tailwind CSS (CDN for standalone usage) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        background: 'hsl(222 47% 11%)',
+                        foreground: 'hsl(210 40% 98%)',
+                        card: 'hsl(222 47% 13%)',
+                        'card-foreground': 'hsl(210 40% 98%)',
+                        primary: {
+                            DEFAULT: 'hsl(190 100% 50%)',
+                            foreground: 'hsl(222 47% 11%)'
+                        },
+                        secondary: {
+                            DEFAULT: 'hsl(217 33% 17%)',
+                            foreground: 'hsl(210 40% 98%)'
+                        },
+                        muted: {
+                             DEFAULT: 'hsl(217 33% 17%)',
+                             foreground: 'hsl(215 20% 65%)'
+                        },
+                        border: 'hsl(217 33% 20%)',
+                        input: 'hsl(217 33% 20%)'
+                    },
+                    fontFamily: {
+                        sans: ['Outfit', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    borderRadius: {
+                        'lg': '0.75rem',
+                        'xl': '1rem',
+                        '2xl': '1.5rem'
+                    }
+                }
+            }
+        }
+    </script>
 
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="font-sans antialiased bg-background text-foreground min-h-screen flex items-center justify-center p-4 md:p-8 overflow-hidden">
+
+    <!-- Background Effects -->
+    <div class="fixed inset-0 z-0 pointer-events-none">
+        <!-- Background Image Overlay -->
+        <div class="absolute inset-0 bg-[url('../../attached_assets/generated_images/abstract_dark_digital_neural_network_background.png')] bg-cover bg-center opacity-100"></div>
+        <div class="absolute inset-0 bg-background/80 backdrop-blur-[2px]"></div>
+        
+        <!-- Glowing Orbs -->
+        <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/20 rounded-full blur-[128px] animate-pulse duration-[4000ms]"></div>
+        <div class="absolute bottom-1/4 right-1/4 w-64 h-64 bg-purple-500/20 rounded-full blur-[96px] animate-pulse duration-[5000ms]"></div>
+    </div>
+
+    <!-- Main Interface -->
+    <div class="relative z-10 flex flex-col h-[85vh] w-full max-w-4xl mx-auto glass rounded-2xl overflow-hidden shadow-2xl">
+        
+        <!-- Header -->
+        <header class="flex items-center justify-between px-6 py-4 border-b border-white/10 bg-black/20 backdrop-blur-xl shrink-0">
+            <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center border border-primary/20">
+                    <i data-lucide="sparkles" class="w-4 h-4 text-primary animate-pulse"></i>
+                </div>
+                <div>
+                    <h1 class="text-lg font-semibold tracking-tight text-white">Nexus AI</h1>
+                    <div class="flex items-center gap-2 text-xs text-muted-foreground">
+                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)]"></span>
+                        <span>System Online</span>
+                    </div>
+                </div>
+            </div>
+            <button id="settings-btn" class="text-muted-foreground hover:text-primary hover:bg-primary/10 transition-colors p-2 rounded-md">
+                <i data-lucide="key" class="w-4 h-4"></i>
+            </button>
+        </header>
+
+        <!-- Chat Area -->
+        <div id="chat-container" class="flex-1 px-4 py-6 overflow-y-auto space-y-6 custom-scrollbar scroll-smooth">
+            <!-- Messages will be injected here by JS -->
+        </div>
+
+        <!-- Input Area -->
+        <div class="p-4 bg-black/20 backdrop-blur-xl border-t border-white/10 shrink-0">
+            <div class="max-w-3xl mx-auto relative flex items-center gap-2">
+                <div class="relative flex-1">
+                    <div class="absolute inset-y-0 left-3 flex items-center pointer-events-none">
+                        <i data-lucide="zap" class="w-4 h-4 text-muted-foreground"></i>
+                    </div>
+                    <input 
+                        id="message-input"
+                        type="text" 
+                        placeholder="Enter directive..." 
+                        class="w-full pl-10 pr-4 h-12 bg-white/5 border border-white/10 hover:border-primary/30 focus:border-primary/50 focus:ring-1 focus:ring-primary/50 focus:outline-none transition-all rounded-xl font-mono text-sm text-white placeholder:text-muted-foreground"
+                    >
+                </div>
+                <button 
+                    id="send-btn"
+                    class="h-12 w-12 flex items-center justify-center rounded-xl bg-primary text-primary-foreground hover:bg-primary/90 shadow-[0_0_10px_rgba(6,182,212,0.4)] transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                    <i data-lucide="send" class="w-5 h-5"></i>
+                </button>
+            </div>
+            <div class="text-center mt-2">
+                <p class="text-[10px] text-muted-foreground font-mono opacity-60">SECURE ENCRYPTED CONNECTION // NEXUS PROTOCOL V1.0</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div id="settings-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm hidden opacity-0 transition-opacity duration-200">
+        <div class="bg-card text-white border border-white/10 rounded-xl w-full max-w-md p-6 shadow-xl transform scale-95 transition-transform duration-200" id="modal-content">
+            <div class="space-y-1 mb-4">
+                <h2 class="text-lg font-semibold leading-none tracking-tight">Authentication Required</h2>
+                <p class="text-sm text-muted-foreground">Enter your OpenRouter API Key to activate the neural link.</p>
+            </div>
+            <div class="space-y-4 py-4">
+                <div class="space-y-2">
+                    <label for="api-key-input" class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">OpenRouter API Key</label>
+                    <input 
+                        id="api-key-input"
+                        type="password" 
+                        placeholder="sk-or-..." 
+                        class="flex h-10 w-full rounded-md border border-white/10 bg-black/20 px-3 py-2 text-sm font-mono ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 disabled:cursor-not-allowed disabled:opacity-50"
+                    >
+                </div>
+            </div>
+            <div class="flex justify-end">
+                <button id="save-key-btn" class="bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2 rounded-md text-sm font-medium transition-colors">
+                    Initialize Link
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+      </html>
